@@ -1,298 +1,145 @@
-/* ===== Màu & font ===== */
-:root {
-  --night: #2B0F3A;
-  --plum: #5A1C73;
-  --pink: #FF5C8A;
-  --lemon: #FFE27A;
-  --lilac: #D9C2FF;
-  --paper: #FFF6FA;
-  --ink: #3A1347;
-  --display: "Baloo 2", "Segoe UI", system-ui, sans-serif;
-  --text: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2B0F3A">
+  <title>Chúc mừng sinh nhật chị!</title>
+  <meta property="og:title" content="Chúc mừng sinh nhật chị!">
+  <meta property="og:description" content="Chạm vào bánh kem để thổi nến nhé.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="confetti" aria-hidden="true"></canvas>
 
-*, *::before, *::after { box-sizing: border-box; }
+  <!-- MÀN 1: bánh kem + thổi nến -->
+  <header class="hero">
+    <h1 class="title">
+      <span class="title-small">Chúc mừng sinh nhật</span>
+      <!-- SỬA Ở ĐÂY: thay "Chị" bằng tên chị của bạn, ví dụ "Chị Hai" -->
+      <span class="title-name" id="name">Chị</span>
+    </h1>
 
-html { -webkit-text-size-adjust: 100%; }
+    <button class="cake" id="cake" type="button" aria-label="Thổi nến">
+      <span class="candle c1"><i class="flame"></i></span>
+      <span class="candle c2"><i class="flame"></i></span>
+      <span class="candle c3"><i class="flame"></i></span>
+      <span class="tier tier-top"></span>
+      <span class="tier tier-bottom"></span>
+      <span class="plate"></span>
+    </button>
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--paper);
-  font-family: var(--text);
-  background:
-    radial-gradient(2px 2px at 12% 18%, rgba(255,255,255,.55), transparent 60%),
-    radial-gradient(2px 2px at 82% 12%, rgba(255,226,122,.7), transparent 60%),
-    radial-gradient(1.5px 1.5px at 66% 34%, rgba(255,255,255,.45), transparent 60%),
-    radial-gradient(1.5px 1.5px at 24% 52%, rgba(217,194,255,.6), transparent 60%),
-    radial-gradient(2px 2px at 90% 62%, rgba(255,255,255,.4), transparent 60%),
-    radial-gradient(130% 70% at 50% 0%, var(--plum) 0%, transparent 65%),
-    var(--night);
-  background-repeat: no-repeat;
-  overflow-x: hidden;
-}
+    <p class="hint" id="hint">Chạm vào bánh để thổi nến</p>
+  </header>
 
-#confetti {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
+  <!-- MÀN 2: lời chúc (hiện ra sau khi thổi nến) -->
+  <main class="reveal" id="reveal">
+    <section class="letter" id="letter">
+      <p class="letter-head">Gửi chị,</p>
+      <!-- SỬA Ở ĐÂY: viết lời chúc của riêng bạn -->
+      <p>Hôm nay là ngày của chị, nên chị cứ vui hết cỡ nhé. Cảm ơn chị vì đã luôn ở bên, nghe em kể đủ thứ chuyện và bao dung với em rất nhiều.</p>
+      <p>Tuổi mới, em mong chị thật khỏe, thật bình an, và mọi dự định chị ấp ủ đều thành hiện thực.</p>
+    </section>
 
-/* ===== Màn 1: bánh kem ===== */
-.hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 36px;
-  padding: calc(24px + env(safe-area-inset-top, 0px)) 20px calc(24px + env(safe-area-inset-bottom, 0px));
-  text-align: center;
-}
+    <section class="wishes" aria-label="Điều ước">
+      <p class="wish">Luôn khỏe mạnh, ăn ngon ngủ ngon.</p>
+      <p class="wish">Công việc thuận lợi, tiền vào như nước.</p>
+      <p class="wish">Cười thật nhiều, còn lo âu thì để em gánh bớt.</p>
+    </section>
 
-.title { margin: 0; line-height: 1; font-family: var(--display); }
+    <!-- Ảnh (không bắt buộc): bỏ ảnh vào images/chi.jpg, không có ảnh thì khung tự ẩn -->
+    <figure class="photo" id="photo">
+      <img src="images/chi.jpg" alt="Ảnh của chị" onerror="document.getElementById('photo').remove()">
+      <figcaption>Một khoảnh khắc em thích</figcaption>
+    </figure>
 
-.title-small {
-  display: block;
-  font-weight: 700;
-  font-size: clamp(1.4rem, 6.5vw, 2rem);
-  color: var(--lilac);
-  letter-spacing: .01em;
-}
+    <p class="sign">Em của chị,<br><!-- SỬA Ở ĐÂY: tên người gửi -->Nhân</p>
 
-.title-name {
-  display: block;
-  margin-top: 6px;
-  font-weight: 800;
-  font-size: clamp(3.6rem, 19vw, 6.5rem);
-  line-height: 1.05;
-  color: var(--paper);
-  text-shadow: 0 4px 0 var(--pink);
-}
+    <div class="actions">
+      <button type="button" class="btn" id="again">Thổi nến lại</button>
+      <button type="button" class="btn btn-ghost" id="boom">Bắn pháo giấy</button>
+    </div>
+  </main>
 
-.cake {
-  all: unset;
-  position: relative;
-  display: block;
-  width: 260px;
-  height: 250px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
+  <script>
+    (function () {
+      var body = document.body;
+      var cake = document.getElementById('cake');
+      var hint = document.getElementById('hint');
+      var canvas = document.getElementById('confetti');
+      var ctx = canvas.getContext('2d');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var parts = [], running = false;
+      var colors = ['#FF5C8A', '#FFE27A', '#D9C2FF', '#FFFFFF', '#7FE0C3'];
 
-.cake:focus-visible { outline: 3px solid var(--lemon); outline-offset: 10px; border-radius: 16px; }
+      function resize() {
+        canvas.width = innerWidth * dpr;
+        canvas.height = innerHeight * dpr;
+        canvas.style.width = innerWidth + 'px';
+        canvas.style.height = innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      addEventListener('resize', resize);
 
-.plate {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 260px; height: 18px;
-  border-radius: 50%;
-  background: var(--lilac);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
-}
+      function burst(x, y, n) {
+        if (reduce) n = Math.round(n / 4);
+        for (var i = 0; i < n; i++) {
+          var a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 9;
+          parts.push({
+            x: x, y: y,
+            vx: Math.cos(a) * s, vy: Math.sin(a) * s - 6,
+            w: 6 + Math.random() * 6, h: 4 + Math.random() * 5,
+            r: Math.random() * 6, vr: (Math.random() - .5) * .4,
+            c: colors[(Math.random() * colors.length) | 0], life: 1
+          });
+        }
+        if (!running) { running = true; requestAnimationFrame(tick); }
+      }
 
-.tier {
-  position: absolute;
-  overflow: hidden;
-}
+      function tick() {
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        parts = parts.filter(function (p) { return p.life > 0 && p.y < innerHeight + 30; });
+        parts.forEach(function (p) {
+          p.vy += .28; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life -= .006;
+          ctx.save();
+          ctx.globalAlpha = Math.max(p.life, 0);
+          ctx.translate(p.x, p.y); ctx.rotate(p.r);
+          ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        if (parts.length) requestAnimationFrame(tick); else running = false;
+      }
 
-.tier::before {            /* kem chảy */
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: 0;
-  height: 26px;
-  background: radial-gradient(circle at 14px 0, var(--drip) 15px, transparent 16px) repeat-x;
-  background-size: 28px 26px;
-}
+      function blow() {
+        if (body.classList.contains('is-open')) return;
+        var r = cake.getBoundingClientRect();
+        cake.classList.add('out');
+        body.classList.add('is-open');
+        hint.textContent = 'Chúc mừng sinh nhật!';
+        burst(r.left + r.width / 2, r.top + 30, 120);
+        setTimeout(function () { burst(innerWidth * .2, innerHeight * .4, 60); }, 350);
+        setTimeout(function () { burst(innerWidth * .8, innerHeight * .4, 60); }, 600);
+        setTimeout(function () {
+          document.getElementById('letter').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        }, 1300);
+      }
 
-.tier-bottom {
-  --drip: var(--paper);
-  left: 20px; bottom: 10px;
-  width: 220px; height: 88px;
-  border-radius: 16px 16px 12px 12px;
-  background:
-    radial-gradient(circle at 20% 70%, var(--lemon) 3px, transparent 4px),
-    radial-gradient(circle at 48% 82%, var(--lilac) 3px, transparent 4px),
-    radial-gradient(circle at 76% 66%, var(--lemon) 3px, transparent 4px),
-    radial-gradient(circle at 90% 84%, var(--lilac) 3px, transparent 4px),
-    var(--pink);
-}
-
-.tier-top {
-  --drip: var(--pink);
-  left: 55px; bottom: 98px;
-  width: 150px; height: 66px;
-  border-radius: 14px;
-  background: #FFE3EC;
-}
-
-.candle {
-  position: absolute;
-  bottom: 164px;
-  width: 8px; height: 38px;
-  border-radius: 3px;
-  background: repeating-linear-gradient(135deg, var(--lemon) 0 6px, var(--paper) 6px 12px);
-}
-.c1 { left: 96px;  height: 32px; }
-.c2 { left: 126px; }
-.c3 { left: 156px; height: 34px; }
-
-.flame {
-  position: absolute;
-  left: 50%; bottom: 100%;
-  width: 13px; height: 22px;
-  margin-bottom: 3px;
-  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-  background: radial-gradient(ellipse at 50% 75%, #fff 0 20%, var(--lemon) 45%, #FF9A3C 100%);
-  box-shadow: 0 0 14px 4px rgba(255, 190, 80, .55);
-  transform: translateX(-50%);
-  transform-origin: 50% 100%;
-  animation: flicker 1.1s ease-in-out infinite alternate;
-}
-.c2 .flame { animation-delay: -.4s; }
-.c3 .flame { animation-delay: -.8s; }
-
-@keyframes flicker {
-  from { transform: translateX(-50%) scale(1, 1) rotate(-3deg); }
-  to   { transform: translateX(-50%) scale(.9, 1.12) rotate(3deg); }
-}
-
-.cake.out .flame {
-  animation: none;
-  opacity: 0;
-  transform: translateX(-50%) scale(.2);
-  transition: opacity .25s, transform .25s;
-}
-
-.hint {
-  margin: 0;
-  min-height: 1.6em;
-  color: var(--lilac);
-  font-size: 1.0625rem;
-}
-body:not(.is-open) .hint { animation: pulse 2s ease-in-out infinite; }
-
-@keyframes pulse { 50% { opacity: .5; } }
-
-/* ===== Màn 2: lời chúc ===== */
-.reveal {
-  display: none;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 40px 20px calc(56px + env(safe-area-inset-bottom, 0px));
-}
-.is-open .reveal { display: block; animation: rise .9s ease both; }
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: none; }
-}
-
-.letter {
-  position: relative;
-  padding: 30px 24px 26px;
-  border-radius: 6px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  transform: rotate(-1deg);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
-}
-.letter::before {          /* miếng băng dính */
-  content: "";
-  position: absolute;
-  top: -12px; left: 50%;
-  width: 96px; height: 24px;
-  transform: translateX(-50%) rotate(2deg);
-  background: rgba(255, 226, 122, .85);
-}
-.letter p { margin: 0 0 14px; }
-.letter p:last-child { margin-bottom: 0; }
-.letter-head {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.7rem;
-  line-height: 1.2;
-  color: var(--pink);
-}
-
-.wishes { margin: 48px 0; text-align: center; }
-.wish {
-  margin: 0;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(1.35rem, 6vw, 1.7rem);
-  line-height: 1.35;
-  color: var(--lemon);
-}
-.wish + .wish::before {
-  content: "♥";
-  display: block;
-  margin: 12px 0;
-  font-size: 1rem;
-  color: var(--pink);
-}
-
-.photo {
-  width: min(78%, 300px);
-  margin: 0 auto 44px;
-  padding: 10px 10px 14px;
-  background: var(--paper);
-  color: var(--ink);
-  transform: rotate(2deg);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, .4);
-}
-.photo img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  background: var(--lilac);
-}
-.photo figcaption {
-  margin-top: 10px;
-  text-align: center;
-  font-family: var(--display);
-  font-size: 1.05rem;
-}
-
-.sign {
-  margin: 0 0 40px;
-  text-align: right;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.3;
-  color: var(--pink);
-}
-
-.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-
-.btn {
-  appearance: none;
-  min-height: 48px;
-  padding: 0 24px;
-  border: 2px solid var(--pink);
-  border-radius: 999px;
-  background: var(--pink);
-  color: var(--night);
-  font: 500 1rem/1 var(--text);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.btn:active { transform: scale(.97); }
-.btn:focus-visible { outline: 3px solid var(--lemon); outline-offset: 3px; }
-.btn-ghost { background: transparent; border-color: var(--lilac); color: var(--lilac); }
-
-/* ===== Màn hình lớn hơn ===== */
-@media (min-width: 700px) {
-  .reveal { max-width: 560px; }
-  .letter { font-size: 1.125rem; padding: 36px 32px 30px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-}
+      cake.addEventListener('click', blow);
+      document.getElementById('boom').addEventListener('click', function () {
+        burst(innerWidth / 2, innerHeight * .6, 140);
+      });
+      document.getElementById('again').addEventListener('click', function () {
+        body.classList.remove('is-open');
+        cake.classList.remove('out');
+        hint.textContent = 'Chạm vào bánh để thổi nến';
+        scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>
