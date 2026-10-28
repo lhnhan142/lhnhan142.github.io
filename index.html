@@ -7,13 +7,16 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #ffebee;
             font-family: Arial, sans-serif;
             text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
         button {
             padding: 15px 30px;
@@ -30,33 +33,67 @@
             background-color: #f50057;
             transform: scale(1.05);
         }
-        #message {
-            display: none;
-            margin-top: 30px;
-            font-size: 30px;
-            color: #c51162;
-            font-weight: bold;
+        #content {
+            display: none; /* Ẩn đi lúc đầu */
+            margin-top: 20px;
             animation: fadeIn 1s;
         }
+        .message {
+            font-size: 28px;
+            color: #c51162;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .image-container img {
+            max-width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .image-container img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div>
-        <button onclick="showBirthdayMessage()">Nhấn vào đây nè! 🎁</button>
-        <div id="message">🎉 Chúc mừng sinh nhật nha! Tuổi mới thật nhiều niềm vui! 🎂🥳</div>
+    
+    <button id="btn" onclick="showBirthdayMessage()">Nhấn vào đây nè! 🎁</button>
+    
+    <div id="content">
+        <div class="message">🎉 Chúc mừng sinh nhật nha! Tuổi mới vui vẻ, cười nhiều như mấy bé này nè! 🎂🥳</div>
+        
+        <div class="image-container">
+            <!-- Ảnh hoa -->
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjM2OWQ1MjY1MzcxZDQ3M2ExMzU1MzE5MzVjMjYxZWYyZmYyNzMyZiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/11Tsyjflf2xq2A/giphy.gif" alt="Hoa đẹp">
+            
+            <!-- Meme Mèo -->
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTA1NjVjYTRlNjZjOTI4NWM1ZWU0YzM1ZjEyMzYwZjUyYWIxMGMxNSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/MDJ9BpXXvSlmY5d7aU/giphy.gif" alt="Mèo meme">
+            
+            <!-- Meme Chó -->
+            <img src="https://media.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif" alt="Chó meme">
+        </div>
     </div>
 
     <script>
         function showBirthdayMessage() {
-            // Hiện thông báo popup trên trình duyệt
-            alert("Ting ting! Chúc mừng sinh nhật người đang đọc dòng chữ này! 🎂");
+            // Hiện thông báo popup
+            alert("Ting ting! Có quà sinh nhật bựa gửi tới nè! 🎁🐶🐱");
             
-            // Hiện thêm dòng chữ chúc mừng trên màn hình
-            document.getElementById('message').style.display = 'block';
+            // Ẩn nút nhấn đi cho đỡ vướng
+            document.getElementById('btn').style.display = 'none';
+            
+            // Hiện chữ chúc mừng và dải ảnh
+            document.getElementById('content').style.display = 'block';
         }
     </script>
 </body>
