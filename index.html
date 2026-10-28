@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi cậu một điều bất ngờ!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffebee;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        button:hover {
+            background-color: #f50057;
+            transform: scale(1.05);
+        }
+        #message {
+            display: none;
+            margin-top: 30px;
+            font-size: 30px;
+            color: #c51162;
+            font-weight: bold;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="showBirthdayMessage()">Nhấn vào đây nè! 🎁</button>
+        <div id="message">🎉 Chúc mừng sinh nhật nha! Tuổi mới thật nhiều niềm vui! 🎂🥳</div>
+    </div>
+
+    <script>
+        function showBirthdayMessage() {
+            // Hiện thông báo popup trên trình duyệt
+            alert("Ting ting! Chúc mừng sinh nhật người đang đọc dòng chữ này! 🎂");
+            
+            // Hiện thêm dòng chữ chúc mừng trên màn hình
+            document.getElementById('message').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
